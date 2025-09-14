@@ -9,7 +9,7 @@ public class ReqresApiTests extends BaseTest {
     void checkTotal() {
         given()
                 .when()
-                .get("https://reqres.in/api/users")
+                .get("/users")
                 .then()
                 .body("total", is(12));
     }
@@ -17,9 +17,9 @@ public class ReqresApiTests extends BaseTest {
     @Test
     void checkPages() {
         given()
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", apiKey)
                 .when()
-                .get("https://reqres.in/api/users")
+                .get("/users")
                 .then()
                 .body("total_pages", is(2));
     }
@@ -27,9 +27,9 @@ public class ReqresApiTests extends BaseTest {
     @Test
     void getUserToken() {
         given()
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", apiKey)
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
                 .statusCode(200)
                 .body("token", notNullValue());
@@ -38,9 +38,9 @@ public class ReqresApiTests extends BaseTest {
     @Test
     void getNonExistentUser() {
         given()
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", apiKey)
                 .when()
-                .get("https://reqres.in/api/users/200")
+                .get("/users/200")
                 .then()
                 .statusCode(404);
     }
@@ -50,10 +50,10 @@ public class ReqresApiTests extends BaseTest {
         String jsonBodyString = "{\"email\": \"tracey.ramo@reqres.in\", \"password\": \"123456\"}";
 
         given()
-                .header("x-api-key", "reqres-free-v1")
+                .header("x-api-key", apiKey)
                 .body(jsonBodyString)
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
                 .statusCode(400);
     }
