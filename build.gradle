@@ -1,0 +1,50 @@
+plugins {
+    id 'java-library'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+def allureVersion = "2.21.0",
+selenideVersion = "7.9.4"
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation (
+            "com.codeborne:selenide:7.9.4",
+            "org.junit.jupiter:junit-jupiter:5.9.3",
+            'com.github.javafaker:javafaker:1.0.2',
+            "org.slf4j:slf4j-simple:2.0.17",
+            'io.qameta.allure:allure-selenide:2.29.1',
+            'com.codeborne:selenide-video-recorder:7.6.0',
+            "io.rest-assured:rest-assured:5.1.0"
+    )
+
+    testRuntimeOnly(
+        "org.slf4j:slf4j-simple:2.0.17")
+}
+
+test {
+    useJUnitPlatform()
+}
