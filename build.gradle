@@ -38,8 +38,14 @@ dependencies {
             "org.slf4j:slf4j-simple:2.0.17",
             'io.qameta.allure:allure-selenide:2.29.1',
             'com.codeborne:selenide-video-recorder:7.6.0',
-            "io.rest-assured:rest-assured:5.1.0"
+            "io.rest-assured:rest-assured:5.1.0",
+            "io.qameta.allure:allure-rest-assured:$allureVersion",
+            'org.assertj:assertj-core:3.24.2',
+            'com.fasterxml.jackson.core:jackson-databind:2.15.2',
+            'com.fasterxml.jackson.core:jackson-core:2.15.2',
+            'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
     )
+    testImplementation 'org.projectlombok:lombok:1.18.28'
 
     testRuntimeOnly(
         "org.slf4j:slf4j-simple:2.0.17")
