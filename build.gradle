@@ -51,6 +51,21 @@ dependencies {
         "org.slf4j:slf4j-simple:2.0.17")
 }
 
-test {
+/*test {
     useJUnitPlatform()
+}*/
+tasks.withType(Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+task api_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("api")
+    }
 }
