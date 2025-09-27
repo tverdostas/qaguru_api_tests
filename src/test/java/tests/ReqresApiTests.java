@@ -1,8 +1,6 @@
 package tests;
 
-import models.UserLoginRequest;
-import models.UserTokenResponse;
-import models.UsersListResponse;
+import models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -12,6 +10,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static specs.RequestSpec.request;
 import static specs.ResponseSpec.responseSpec;
+import static org.hamcrest.Matchers.is;
 
 public class ReqresApiTests extends BaseTest {
     @Test
@@ -88,5 +87,25 @@ public class ReqresApiTests extends BaseTest {
                 .post("/login")
                 .then()
                 .spec(responseSpec(400)));
+    }
+
+    @Test
+    @Tag("api")
+    @DisplayName("Получение ошибки при регистрации пользователя не из списка")
+    void createUserTest() {
+        UserCreateRequest body = new UserCreateRequest();
+        body.setUsername("test1");
+        body.setEmail("test1@gmail.com");
+        body.setPassword("123456");
+
+                step("Отправить запрос на создание нового пользователя", () ->
+                given()
+                        .spec(request)
+                        .body(body)
+                        .when()
+                        .post("/register")
+                        .then()
+                        .spec(responseSpec(400)))
+                        .body("error", is("Note: Only defined users succeed registration"));
     }
 }
