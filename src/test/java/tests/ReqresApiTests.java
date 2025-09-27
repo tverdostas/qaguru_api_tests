@@ -30,9 +30,9 @@ public class ReqresApiTests extends BaseTest {
 
         step("Проверить параметры", () -> {
             assertThat(response.getPage()).isEqualTo(2);
-            assertThat(response.getPer_page()).isEqualTo(6);
+            assertThat(response.getPerPage()).isEqualTo(6);
             assertThat(response.getTotal()).isEqualTo(12);
-            assertThat(response.getTotal_pages()).isEqualTo(2);
+            assertThat(response.getTotalPages()).isEqualTo(2);
         });
     }
 
